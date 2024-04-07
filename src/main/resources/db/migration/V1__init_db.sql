@@ -1,0 +1,17 @@
+CREATE TABLE Client(
+id SERIAL PRIMARY KEY,
+name VARCHAR CHECK(LENGTH(name) BETWEEN 3 AND 300)
+);
+
+CREATE TABLE Planet(
+id SERIAL PRIMARY KEY,
+name VARCHAR CHECK(name ~ '^[A-Z0-9]+$' AND LENGTH(name) BETWEEN 1 AND 500)
+);
+
+CREATE TABLE Ticket(
+id SERIAL PRIMARY KEY,
+created_at TIMESTAMP,
+client_id INTEGER REFERENCES Client(id),
+from_planet_id INTEGER REFERENCES Planet(id),
+to_planet_id INTEGER REFERENCES Planet(id)
+);
